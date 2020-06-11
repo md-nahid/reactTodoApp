@@ -8,25 +8,25 @@ export class Todo extends Component {
             {
                 id: 1,
                 value: "Noman",
-                value2 : "2nd column",
+                value2 : "Chowdhury",
                 marked : false
             },
             {
                 id: 2,
-                value: "Noman2",
-                value2 : "2nd column",
+                value: "Munna",
+                value2 : "Chowdhury",
                 marked : false
             },
             {
                 id: 3,
-                value: "Noman3",
-                value2 : "2nd column",
+                value: "Nahid",
+                value2 : "Chowdhury",
                 marked : false
             },
             {
                 id: 4,
-                value: "Noman4",
-                value2 : "2nd column",
+                value: "Abu Bokkor",
+                value2 : "Siddque",
                 marked : false
 
             },
