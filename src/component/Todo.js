@@ -7,30 +7,31 @@ export class Todo extends Component {
         todos: [
             {
                 id: 1,
-                value: "Todo app made.",
+                value: "Noman",
                 value2 : "2nd column",
                 marked : false
             },
             {
                 id: 2,
-                value: "Basic todo app",
+                value: "Noman2",
                 value2 : "2nd column",
                 marked : false
             },
             {
                 id: 3,
-                value: "Add one todo from one input",
+                value: "Noman3",
                 value2 : "2nd column",
                 marked : false
             },
             {
                 id: 4,
-                value: "Gave it a second column",
+                value: "Noman4",
                 value2 : "2nd column",
                 marked : false
 
             },
-        ]
+        ],
+        filteritem : ""
     }
 
 
@@ -62,7 +63,7 @@ export class Todo extends Component {
     }
 
 
-    // mark and unmark items
+    // mark and unmark items by clicking check box
     markedItem = (id) => {
         this.setState({ todos: this.state.todos.map(todo => {
             if(todo.id === id) {
@@ -82,19 +83,50 @@ export class Todo extends Component {
         })})
     }
 
+    // unmark all todo items
+    unmarkall = () => {
+        this.setState({todos: this.state.todos.map((todo) => {
+            if(todo.marked === true) {
+                todo.marked = !todo.marked;
+            }return todo;
+        })})
+    }
+
+
+    // set the state filteritem 
+    setstatefilteritem = (e) => {
+        let text = e.target.value.toLowerCase();
+        this.setState({ filteritem : text });
+    }
     
+    // filtering from state
+    searchingfrom(item){
+        return function(todo){
+            return todo.value.toLowerCase().includes(item) || !item;
+        }
+    }
+   
+    
+    // edit todo items 
+    editItem = (value) => {
+      console.log(value);   
+    }
+
 
     render() {
+        const {filteritem, todos} = this.state;
         return (
             <div>
                 <div className="topbtns">
                     <button className="deletemarked" onClick={this.markall}>Select All</button>
+                    <button className="deletemarked" onClick={this.unmarkall}>Unselect All</button>
                     <button className="deletemarked" onClick={this.deletemarked}>Delete Marked</button>
+                    <input type="text" placeholder="Filter by first name" onChange={this.setstatefilteritem} value={filteritem} />
                 </div>
                 <AddTodo addtodo={this.addtodo} />
-                {this.state.todos.map( (todo) => (
-                    <TodoItem markedItem={this.markedItem} key={todo.id} todo={todo} delTodo={this.delTodo} />
-                ))}
+                {todos.filter(this.searchingfrom(filteritem)).map( (todo) => 
+                    <TodoItem key={todo.id} editItem={this.editItem} markedItem={this.markedItem} todo={todo} delTodo={this.delTodo} />
+                )}
             </div>
         )
     }
