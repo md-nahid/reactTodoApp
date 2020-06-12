@@ -2,38 +2,54 @@ import React, { Component } from 'react'
 import AddTodo from "./AddTodo"
 import TodoItem from './TodoItem'
 
-export class Todo extends Component {
-    state = {
-        todos: [
-            {
-                id: 1,
-                value: "Noman",
-                value2 : "Chowdhury",
-                marked : false
-            },
-            {
-                id: 2,
-                value: "Munna",
-                value2 : "Chowdhury",
-                marked : false
-            },
-            {
-                id: 3,
-                value: "Nahid",
-                value2 : "Chowdhury",
-                marked : false
-            },
-            {
-                id: 4,
-                value: "Abu Bokkor",
-                value2 : "Siddque",
-                marked : false
 
-            },
+
+
+
+
+// let storelist = 
+
+// function setlocalstorage(x) {
+//     localStorage.setItem("todolist", JSON.stringify(storelist));
+// }
+
+// let fromstorage = localStorage.getItem("todolist");
+// let anotherlist = JSON.parse(fromstorage);
+
+export class Todo extends Component {
+
+    state = {
+        todos: [ 
+        {
+            id: 1,
+            value: "Noman",
+            value2 : "Chowdhury",
+            marked : false
+        },
+        {
+            id: 2,
+            value: "Munna",
+            value2 : "Chowdhury",
+            marked : false
+        },
+        {
+            id: 3,
+            value: "Nahid",
+            value2 : "Chowdhury",
+            marked : false
+        },
+        {
+            id: 4,
+            value: "Abu Bokkor",
+            value2 : "Siddque",
+            marked : false
+        
+        },
         ],
         filteritem : ""
     }
 
+    
 
     // delete todo if click on red cross button
     delTodo = (id) => {
@@ -56,7 +72,7 @@ export class Todo extends Component {
         }
     }
 
-
+    
     // delete all marked item onclick  the Delete button
     deletemarked = () => {
         this.setState({ todos: [...this.state.todos.filter( item => item.marked === false)]})
@@ -99,6 +115,7 @@ export class Todo extends Component {
         this.setState({ filteritem : text });
     }
     
+
     // filtering from state
     searchingfrom(item){
         return function(todo){
@@ -106,11 +123,9 @@ export class Todo extends Component {
         }
     }
    
+
     
-    // edit todo items 
-    editItem = (value) => {
-      console.log(value);   
-    }
+
 
 
     render() {

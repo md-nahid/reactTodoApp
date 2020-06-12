@@ -9,7 +9,6 @@ export class TodoItem extends Component {
                 <div className="todoitem">
                     <p className="todocontent">{value}</p>
                     <p className="todocontent">{value2}</p>
-                    <p className="todocontent edit" onClick={this.props.editItem.bind(this, value)}>Edit</p>  
                     <input className="todocontent" type="checkbox" onChange={this.props.markedItem.bind(this, id)} checked={marked}/>
                     <button className="todocontent" onClick={this.props.delTodo.bind(this, id)}>x</button>
                 </div>
