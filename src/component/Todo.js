@@ -7,19 +7,7 @@ import TodoItem from './TodoItem'
 
 
 
-// let storelist = 
-
-// function setlocalstorage(x) {
-//     localStorage.setItem("todolist", JSON.stringify(storelist));
-// }
-
-// let fromstorage = localStorage.getItem("todolist");
-// let anotherlist = JSON.parse(fromstorage);
-
-export class Todo extends Component {
-
-    state = {
-        todos: [ 
+let storelist = [ 
         {
             id: 1,
             value: "Noman",
@@ -45,11 +33,22 @@ export class Todo extends Component {
             marked : false
         
         },
-        ],
+        ]
+
+        // setlocalstorage
+function setlocalstorage() {
+        localStorage.setItem("todolist", JSON.stringify(storelist));
+}
+// get items from local storage
+
+    let newlist = JSON.parse(localStorage.getItem("todolist"));
+
+
+export class Todo extends Component {
+    state = {
+        todos: newlist,
         filteritem : ""
     }
-
-    
 
     // delete todo if click on red cross button
     delTodo = (id) => {
@@ -68,7 +67,10 @@ export class Todo extends Component {
                 value2 : item.value2,
                 marked : false
             }
-            this.setState({ todos : [...this.state.todos, newTodo] });
+            // this.setState({ todos : [...this.state.todos, newTodo] });
+            storelist.push(newTodo);
+            setlocalstorage();
+            this.setState({ todos: JSON.parse(localStorage.getItem("todolist"))});
         }
     }
 
@@ -112,34 +114,27 @@ export class Todo extends Component {
     // set the state filteritem 
     setstatefilteritem = (e) => {
         let text = e.target.value.toLowerCase();
-        this.setState({ filteritem : text });
-    }
-    
-
-    // filtering from state
-    searchingfrom(item){
-        return function(todo){
-            return todo.value.toLowerCase().includes(item) || !item;
+        // this.setState({filteritem : text });
+        // newlist.filter(item => item.value.toLowerCase().indexOf(this.state.filteritem) !== -1 );
+        // console.log(newlist.filter(item => item.value.toLowerCase().includes(text) || !text))
+        this.setState({ todos: newlist.filter(item => item.value.toLowerCase().includes(text) || !text)})
         }
-    }
-   
-
     
-
 
 
     render() {
-        const {filteritem, todos} = this.state;
+        const { todos } = this.state;
         return (
             <div>
                 <div className="topbtns">
                     <button className="deletemarked" onClick={this.markall}>Select All</button>
                     <button className="deletemarked" onClick={this.unmarkall}>Unselect All</button>
                     <button className="deletemarked" onClick={this.deletemarked}>Delete Marked</button>
-                    <input type="text" placeholder="Filter by first name" onChange={this.setstatefilteritem} value={filteritem} />
+                    <input type="text" placeholder="Filter by first name" onChange={this.setstatefilteritem} />
                 </div>
                 <AddTodo addtodo={this.addtodo} />
-                {todos.filter(this.searchingfrom(filteritem)).map( (todo) => 
+
+                {todos.map( (todo) => 
                     <TodoItem key={todo.id} editItem={this.editItem} markedItem={this.markedItem} todo={todo} delTodo={this.delTodo} />
                 )}
             </div>
